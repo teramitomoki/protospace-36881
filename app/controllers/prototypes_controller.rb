@@ -2,6 +2,7 @@ class PrototypesController < ApplicationController
   before_action :move_to_index, except: [:index, :show]
 
   def index
+    @prototype = Prototype.all
   end
 
   def new
@@ -10,12 +11,34 @@ class PrototypesController < ApplicationController
 
   def create
     @prototype = Prototype.new(prototype_params)
-
     if @prototype.save
       redirect_to root_path
     else
       render :new
     end
+  end
+
+  def show
+    @prototype = Prototype.find(params[:id])
+  end
+
+  def edit
+    @prototype = Prototype.find(params[:id])
+  end
+
+  def update
+    @prototype = Prototype.find(params[:id])
+    if @prototype.update(prototype_params)
+      redirect_to prototype_path
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    prototype = Prototype.find(params[:id])
+    prototype.destroy
+    redirect_to root_path
   end
 
   private
@@ -30,4 +53,3 @@ class PrototypesController < ApplicationController
     params.require(:prototype).permit(:image, :title, :catch_copy, :concept).merge(user_id: current_user.id)
   end
 end
-
