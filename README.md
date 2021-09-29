@@ -36,7 +36,7 @@
 | --------- | ---------- | ------------------------------ |
 | concept   | text       | null: false                    |
 | prototype | references | null: false, foreign_key: true |
-| prototype | references | null: false, foreign_key: true |
+| user      | references | null: false, foreign_key: true |
 ### Association
 
 - belongs_to :users
